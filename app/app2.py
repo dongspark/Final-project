@@ -44,12 +44,12 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 def get_poem(input_word):
         
     #load all the data you need:
-    model = keras.models.load_model('models/bi_lstm')
-    word_index = pickle.load(open('word_index.p','rb'))
-    input_sequences = pickle.load(open('input_sequences.p','rb'))
+    model = keras.models.load_model('models/bd_bi_lstm')
+    word_index = pickle.load(open('bd_word_index.p','rb'))
+    input_sequences = pickle.load(open('bd_input_sequences.p','rb'))
     max_sequence_len = max([len(x) for x in input_sequences])
-    corpus_cleaned = pd.read_csv('corpus_cleaned.csv')
-    tokenizer = pickle.load(open('tokenizer.p','rb'))
+    corpus_cleaned = pd.read_csv('bd_corpus_cleaned.csv')
+    tokenizer = pickle.load(open('bd_tokenizer.p','rb'))
 
         
     
@@ -91,7 +91,7 @@ def get_poem(input_word):
     choices = random.sample(words_to_use, 3)
     for item in choices: 
         seed_text = item
-        next_words = random.choice([4,5,6,7,8])
+        next_words = random.choice([6,7,8,9,10,11,12])
         
         
     
@@ -207,12 +207,12 @@ def get_image(input_word):
 
 
 
-        #prompt_text = "A colorful painting of a jellyfish by a coral reef, trending on artstation " 
-        prompt_text ='In the blue sky neither give spent good all myths stopping looking with their sheep flew do of verse but the minority or syllable already till dawn but it in the ruin of a sudden final word we by we along with the ruin'#@param
-        width = 200 #@param
-        height = 150 #@param
-        lr = 0.1 #@param
-        n_iter = 100 #@param
+        
+        prompt_text =input_word#@param
+        width = width_input #@param
+        height = hight_input #@param
+        lr = lr_input #@param
+        n_iter = n_iter_input #@param
         crops_per_iteration = 8 #@param
 
         # The transforms to get variations of our image
@@ -277,28 +277,52 @@ def get_image(input_word):
 
 
 
-
+st.image('titlepic.png',width=800)
 
 
 st.write("""
 # Lyrics and image Web App
-This app generate lyrics and image according to your input!
+This app generate Bob Dylan's style of lyrics and customized image according to your input! :memo: :frame_with_picture:
 ***
 """)
 
 seed_input='the blue sky'
 
+
+st.sidebar.image("sidepic.png", width=300)
+
 st.sidebar.header('User Input Features')
-seed=st.sidebar.text_area('lytics input',seed_input)
+seed=st.sidebar.text_input('Seed words input',seed_input)
 
 
+st.sidebar.subheader(':point_right: Select the width of the image')
+width_input=st.sidebar.slider('choose between 0-1000',min_value=0,max_value=1000,step=25,value=40)
 
 
-st.header('Generated lyrics')
-x=get_poem(seed)
-x = x.split('\n')
-x
+st.sidebar.subheader(':point_right:Select the height of the image')
+hight_input=st.sidebar.slider('choose between 0-750',min_value=0,max_value=750,step=5,value=30)
 
-st.header('Generated image')
-y=get_image('the blue sky')
-st.image(y)
+st.sidebar.subheader(':point_right:Select the learning rate of the image generator')
+lr_input=st.sidebar.slider('choose between 0.00-1.00',min_value=0.00,max_value=1.00,step=0.01,value=0.1)
+
+st.sidebar.subheader(':point_right:Select the number of literation for the image generator')
+n_iter_input=st.sidebar.slider('choose between 50-1500',min_value=50,max_value=1500,step=50,value=100)
+
+
+st.sidebar.subheader(':point_right:Select the style of the image')
+style = st.sidebar.selectbox('Select the style of the image',
+    ('pencil sketch', 'anime', 'watercolor','fine art','normal'))
+
+
+st.header('Generated lyrics :memo:')
+
+if st.sidebar.button('Start to generate'):
+    x=get_poem(seed)
+    x = x.split('\n')
+    x
+    st.header('Generated image :frame_with_picture:')
+    x = ''.join(x) # Concatenates list to string
+    #z=style +' painting of '+ x
+    y=get_image(style +' painting of '+ x)
+
+    st.image(y,width=400)
