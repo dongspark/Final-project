@@ -7,17 +7,23 @@ For the lyrics generator,I applied NLP based on LSTM and trained a Bidirectional
 ### Tutorial:
 This project is based on a lot of great tutorials I found online.
 
-tutorials for NLP :point_right: :*[NLP](https://www.youtube.com/watch?v=ZMudJXhsUpY)*.
-tutorials for image generator :point_right: *[AIAIART](https://www.youtube.com/watch?v=dWCM-_V4hz8&list=PL23FjyM69j910zCdDFVWcjSIKHbSB7NE8&index=3)*.
+:point_right:tutorials for *NLP*  :*[NLP](https://www.youtube.com/watch?v=ZMudJXhsUpY)*.
+
+
+:point_right:tutorials for *image generator* : *[AIAIART](https://www.youtube.com/watch?v=dWCM-_V4hz8&list=PL23FjyM69j910zCdDFVWcjSIKHbSB7NE8&index=3)*.
+
+
 
 ### The data resource:
 The lyrics data is collected from *[Kaggle](https://www.kaggle.com/datasets/terminate9298/songs-lyrics?select=lyrics.csv)*.
+
+
 
 ### Network Architecture:
 The NLP network has the following architecture: Input -> Embedding layer -> Bidirectional LSTM layers -> Dropout layer -> another LSTM layers -> Fully Connected Linear Layer -> Output
 
 The structure of CLIP+VQGAN model is as below:
-![image info](model.png)
+![alt text](model.png)
 
 ### Streamlit:
 After training the model, I set it up with simple web interface using Streamlit
