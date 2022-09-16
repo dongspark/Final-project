@@ -1,5 +1,5 @@
 import spacy
-spacy.cli.download("en_core_web_md")
+#spacy.cli.download("en_core_web_md")
 import random
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -296,11 +296,11 @@ seed=st.sidebar.text_input('Seed words input',seed_input)
 
 
 st.sidebar.subheader(':point_right: Select the width of the image')
-width_input=st.sidebar.slider('choose between 0-1000',min_value=0,max_value=1000,step=25,value=40)
+width_input=st.sidebar.slider('choose between 0-1000',min_value=0,max_value=1000,step=25,value=50)
 
 
 st.sidebar.subheader(':point_right:Select the height of the image')
-hight_input=st.sidebar.slider('choose between 0-750',min_value=0,max_value=750,step=5,value=30)
+hight_input=st.sidebar.slider('choose between 0-750',min_value=0,max_value=750,step=5,value=50)
 
 st.sidebar.subheader(':point_right:Select the learning rate of the image generator')
 lr_input=st.sidebar.slider('choose between 0.00-1.00',min_value=0.00,max_value=1.00,step=0.01,value=0.1)
@@ -311,7 +311,7 @@ n_iter_input=st.sidebar.slider('choose between 50-1500',min_value=50,max_value=1
 
 st.sidebar.subheader(':point_right:Select the style of the image')
 style = st.sidebar.selectbox('Select the style of the image',
-    ('pencil sketch', 'anime', 'watercolor','fine art','normal'))
+    ('fine art','pencil sketch', 'anime', 'watercolor','normal'))
 
 
 st.header('Generated lyrics :memo:')
